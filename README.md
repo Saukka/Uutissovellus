@@ -1,0 +1,2 @@
+# Uutissovellus
+Uutissovellukseni tietokantasovellus-kurssille
