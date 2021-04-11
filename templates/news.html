@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<head>
+<title>Uutissanomat</title>
+<link rel="stylesheet" href="/static/tyyli.css">
+</head>
+<body>
+<h1 id="headtitle">Uutissanomat</h1>
+
+<div id="box">
+
+<a href="/">Etusivu</a>
+<a>Luetuimmat</a>
+
+</div>
+<div id="titles">
+{% for title in news %}
+<a href="/news/{{title[0]}}">{{title[1]}}</a>
+<hr>
+{% endfor %}
+</div>
+</body>
+</html>

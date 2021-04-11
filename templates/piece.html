@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+<title>Uutissanomat</title>
+<link rel="stylesheet" href="/static/tyyli.css">
+</head>
+<body>
+<h1 id="headtitle">Uutissanomat</h1>
+<div id="box">
+
+<a href="/">Etusivu</a>
+<a>Luetuimmat</a>
+
+</div>
+<div id="titles">
+<h2>{{news[0][1]}}</h2>
+
+{{news[0][2]}}
+
+</div>
+
+<div id="info">
+Toimittaja: {{news[0][3]}}
+<br>
+Julkaistu {{news[0][4].strftime("%H:%M %d.%m.%Y")}}
+</div>
+</body>
+</html>
