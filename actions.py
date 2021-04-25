@@ -10,7 +10,7 @@ def gettopics():
 
 def comment(news_id,username,comment):
     try:
-        sql = "INSERT INTO comments (news_id, username, comment, date) VALUES (:news_id, :username, :comment, NOW())"
+        sql = "INSERT INTO comments (news_id, username, comment, date, visible) VALUES (:news_id, :username, :comment, NOW(), 1)"
         db.session.execute(sql, {"news_id":news_id, "username":username, "comment":comment})
         db.session.commit()
         return True
@@ -33,7 +33,14 @@ def addview(id):
     return True;
     
 def deletepiece(id):
-    sql = "UPDATE news SET visible = 0 WHERE id=:id"
+    username = session["username"]
+    sql = "UPDATE news SET visible = 0 WHERE id=:id AND reporter=:username"
+    db.session.execute(sql, {"id":id, "username":username})
+    db.session.commit()
+    return True;
+
+def deletecomment(id):
+    sql = "UPDATE comments SET visible = 0 WHERE id=:id"
     db.session.execute(sql, {"id":id})
     db.session.commit()
     return True;

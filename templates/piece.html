@@ -4,7 +4,7 @@
     
 {% if session.username == news[0][3] %}
 <p> Katselukerrat: {{news[0][5]}}</p>
-<form action="/deletepiece">
+<form action="/deletepiece" method="POST">
     <input type="submit" value="Poista uutinen">
     <input type="hidden" name="id" value="{{news[0][0]}}">
 </form>
@@ -33,8 +33,15 @@ Julkaistu {{news[0][4].strftime("%H:%M %d.%m.%Y")}}
 
 <div id="comments">
 {% for comment in comments %}
+
 <p class="title"><span>{{comment[4].strftime("%d.%m.%Y. %H:%M")}}</span> {{comment[2]}}:</p>
 <p class="text">{{comment[3]}}</p>
+{% if session.username == comment[2] or session.username == news[0][3] %}
+<form action="/deletecomment" method="POST">
+    <input type="submit" value="Poista kommentti">
+    <input type="hidden" name="id" value="{{comment[0]}}">
+</form>
+{% endif %}
 <hr>
 {% endfor %}
 </div>

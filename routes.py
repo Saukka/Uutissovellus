@@ -103,10 +103,16 @@ def publish():
         return render_template("error.html",message="Virhe tapahtui. Ehkä et ole toimittaja")
     
 
-@app.route("/deletepiece")
+@app.route("/deletepiece", methods=["POST"])
 def deletepiece():
     id = request.form["id"]
-    if actions.deletepiece(id):
-        return redirect("/")
-    else:
-        return redirect("/")
+    actions.deletepiece(id)
+    return redirect("/")
+
+@app.route("/deletecomment", methods=["POST"])
+def deletecomment():
+    id = request.form["id"]
+    actions.deletecomment(id)
+    return redirect(request.referrer)
+    
+
