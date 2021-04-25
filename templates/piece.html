@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<head>
-<title>Uutissanomat</title>
+{% extends "layout.html" %}
+{% block content %}
 <link rel="stylesheet" href="/static/tyyli.css">
-</head>
-<body>
-<h1 id="headtitle">Uutissanomat</h1>
-<div id="box">
-
-<a href="/">Etusivu</a>
-<a>Luetuimmat</a>
-
-</div>
+    
+{% if session.username == news[0][3] %}
+<p> Katselukerrat: {{news[0][5]}}</p>
+<form action="/deletepiece">
+    <input type="submit" value="Poista uutinen">
+    <input type="hidden" name="id" value="{{news[0][0]}}">
+</form>
+{% endif %}
 <div id="titles">
 <h2>{{news[0][1]}}</h2>
 
@@ -23,5 +21,22 @@ Toimittaja: {{news[0][3]}}
 <br>
 Julkaistu {{news[0][4].strftime("%H:%M %d.%m.%Y")}}
 </div>
-</body>
-</html>
+<br>
+
+{% if session.username %}
+<form action="/comment" method="POST">
+    <textarea id="commentbox" name="comment" placeholder="Kommentoi..."></textarea><br>
+    <input type="submit" value="Lähetä kommentti">
+    <input type="hidden" name="news_id" value="{{news[0][0]}}">
+</form>
+{% endif %}
+
+<div id="comments">
+{% for comment in comments %}
+<p class="title"><span>{{comment[4].strftime("%d.%m.%Y. %H:%M")}}</span> {{comment[2]}}:</p>
+<p class="text">{{comment[3]}}</p>
+<hr>
+{% endfor %}
+</div>
+
+{% endblock %}

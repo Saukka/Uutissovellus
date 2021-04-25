@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<p style="font-size:26px">Tulokset haulle '{{search}}'<p><br>
 <div id="titles">
 {% for title in news %}
 <a href="/news/{{title[0]}}">{{title[1]}}</a>
@@ -9,6 +10,6 @@
 </div>
 </body>
 </html>
-
 {% endblock %}
+
 

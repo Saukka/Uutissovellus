@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-
+<p style="font-size:24px">Aiheen {{topic}} uutiset:</p>
 <div id="titles">
 {% for title in news %}
 <a href="/news/{{title[0]}}">{{title[1]}}</a>
@@ -11,4 +11,5 @@
 </html>
 
 {% endblock %}
+
 

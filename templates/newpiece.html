@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+<p style="fontsize: 25px">Luo uusi uutinen</p>
+<form action="/publish" method="POST">
+    <textarea id="titlebox" name="title" placeholder="Otsikko"></textarea><br>
+    <textarea id="bodybox" name="body" placeholder="Leipäteksti"></textarea><br>
+    <div id="topics">
+    {% for topic in topics %}
+    <input type="radio" id="{{topic[0]}}" name="topic" value="{{topic[0]}}" checked>
+    <label for="{{topic[0]}}"> {{topic[0]}} </label>
+    {% endfor %}
+    </div>
+    <input id="publish" type="submit" value="Julkaise">
+</form>
+
+{% endblock %}

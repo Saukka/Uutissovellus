@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+<title>Rekisteröityminen</title>
+<link rel="stylesheet" href="/static/tyyli.css">
+</head>
+<body>
+<h1 id="headtitle">Uutissanomat</h1>
+
+<div id="regArea">
+    <a href="/"> takaisin</a>
+    <form action="/register" method="POST">
+        <p>Uusi käyttäjätunnus<br>
+        <input type="text" name="username"></p>
+        <p>Salasana<br>
+        <input type="password" name="password"></p>
+        <input type="radio" id="lukija" name="usertype" value="lukija" checked>
+        <label for ="lukija">Lukija</label><br>
+        <input type="radio" id="toimittaja" name="usertype" value="toimittaja">
+        <label for ="toimittaja">Toimittaja</label><br>
+        <input type="submit" value="Luo uusi tunnus">
+    </form>
+</div>
+</body>
+</html>
