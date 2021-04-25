@@ -4,6 +4,7 @@ CREATE TABLE news (
     body TEXT,
     reporter TEXT,
     date TIMESTAMP,
+    views INTEGER,
     topic TEXT,
     visible INTEGER 
 );
