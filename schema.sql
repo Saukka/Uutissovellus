@@ -3,18 +3,14 @@ CREATE TABLE news (
     title TEXT,
     body TEXT,
     reporter TEXT,
-    date TIMESTAMP 
+    date TIMESTAMP,
+    topic TEXT,
+    visible INTEGER 
 );
 
 CREATE TABLE topics (
     id SERIAL PRIMARY KEY,
     topic TEXT
-);
-
-CREATE TABLE news_topics (
-    id SERIAL PRIMARY KEY,
-    news_id INTEGER REFERENCES news,
-    topic_id INTEGER REFERENCES topics
 );
 
 CREATE TABLE users (
@@ -29,5 +25,6 @@ CREATE TABLE comments (
     news_id INTEGER,
     username TEXT,
     comment TEXT,
-    date TIMESTAMP
+    date TIMESTAMP,
+    visible INTEGER
 );
