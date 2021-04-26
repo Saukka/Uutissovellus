@@ -8,7 +8,7 @@ Linkki herokuun: https://limitless-citadel-02629.herokuapp.com
 
 Sovelluksessa voi lukea eri aiheisiin liittyviä toimittajien julkaisemia uutisia ja artikkeleja. Jokainen käyttäjä on lukija tai toimittaja.
 
-Sovelluksen suunnitellut ominaisuuksia ovat: 
+Sovelluksen suunnitellut ominaisuudet ovat: 
 
 * Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
 * Lukija voi selata uutisia erilaisten aiheiden perusteella, katsoa luetuimmat sekä uusimmat uutiset ja klikata niihin lukeakseen koko artikkelin.
