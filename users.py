@@ -1,10 +1,8 @@
-from app import app
 from db import db
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import session, render_template, request, redirect
 from os import getenv
-
-app.secret_key = getenv("SECRET_KEY")
+from app import app
 
 def login(username,password):
     sql = "SELECT password, id, usertype FROM users WHERE username=:username"
