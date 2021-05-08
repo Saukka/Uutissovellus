@@ -39,8 +39,37 @@ def deletepiece(id):
     db.session.commit()
     return True;
 
-def deletecomment(id):
-    sql = "UPDATE comments SET visible = 0 WHERE id=:id"
-    db.session.execute(sql, {"id":id})
-    db.session.commit()
-    return True;
+def deletecomment(id, news_id):
+    sqlcheck = "SELECT reporter FROM news WHERE id=:news_id"
+    result = db.session.execute(sqlcheck, {"news_id":news_id})
+    reporter = result.fetchone()[0]
+    
+    sqlcheck2 = "SELECT username FROM comments WHERE id=:id"
+    result2 = db.session.execute(sqlcheck2, {"id":id})
+    commenter = result2.fetchone()[0]
+    
+    username = session["username"]
+    if reporter == username or commenter == username:
+        sql = "UPDATE comments SET visible = 0 WHERE id=:id"
+        db.session.execute(sql, {"id":id})
+        db.session.commit()
+        return True;
+    return False;
+
+def swapbookmark(news_id):
+    username = session["username"]
+    sql = "SELECT COUNT(*) FROM bookmarks where username=:username AND news_id=:news_id"
+    result = db.session.execute(sql, {"username":username, "news_id":news_id})
+    amount = result.fetchone()[0]
+    print(amount)
+    if amount == 0:
+        sqlinsert = "INSERT INTO bookmarks (username, news_id, visible) VALUES (:username, :news_id, 1)"
+        db.session.execute(sqlinsert, {"username":username, "news_id":news_id})
+        db.session.commit()
+        return True;
+    elif amount == 1:
+        sqlset = "UPDATE bookmarks SET visible = -1 * visible WHERE username=:username AND news_id=:news_id"
+        db.session.execute(sqlset, {"username":username, "news_id":news_id})
+        db.session.commit()
+        return True;
+    return False;

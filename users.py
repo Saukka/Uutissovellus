@@ -31,14 +31,12 @@ def logout():
     
 def register(username,password,usertype):
     hash = generate_password_hash(password)
-    if len(username) < 3:
-        return render_template("error.html", message="Käyttäjätunnuksessa tulee olla vähintään 3 merkkiä")
-    if len(password) < 6:
-        return render_template("error.html", message="Salasanassa tulee olla vähintään 6 merkkiä")
+    if len(username) < 3 or len(username) > 20 or len(password) < 6 or len(password) > 32:
+        return "Käyttäjätunnuksen tulee sisältää 3-20 merkkiä ja salasanan 6-32."
     try:
         sql = "INSERT INTO users (username,password,usertype) VALUES (:username,:password,:usertype)"
         db.session.execute(sql, {"username":username,"password":hash,"usertype":usertype})
         db.session.commit()
     except:
-        return False
+        return "Rekisteröityminen epäonnistui. Kokeile toista käyttäjätunnusta"
     return login(username,password)

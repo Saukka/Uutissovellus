@@ -4,20 +4,25 @@
 <link rel="stylesheet" href="/static/tyyli.css">
 </head>
 <body>
-<h1 id="headtitle">Uutissanomat</h1>
+<a href="/" style="text-decoration: none;"><h1 id="headtitle">Uutissanomat</h1></a>
 
 <div id="regArea">
-    <a href="/"> takaisin</a>
+    <a href="/"><div id="return"> Etusivulle</a></div>
     <form action="/register" method="POST">
+        <div id="textandbox">
         <p>Uusi käyttäjätunnus<br>
-        <input type="text" name="username"></p>
+        <input id="regbox" type="text" name="username"></p>
         <p>Salasana<br>
-        <input type="password" name="password"></p>
+        <input id="regbox" type="password" name="password"></p>
+        </div>
+        {% if message %} 
+        <p style="color:red">{{message}}</p>
+        {% endif %}
         <input type="radio" id="lukija" name="usertype" value="lukija" checked>
         <label for ="lukija">Lukija</label><br>
         <input type="radio" id="toimittaja" name="usertype" value="toimittaja">
         <label for ="toimittaja">Toimittaja</label><br>
-        <input type="submit" value="Luo uusi tunnus">
+        <input id="newuser" type="submit" value="Luo uusi tunnus">
     </form>
 </div>
 </body>

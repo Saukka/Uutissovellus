@@ -29,3 +29,10 @@ CREATE TABLE comments (
     date TIMESTAMP,
     visible INTEGER
 );
+
+CREATE TABLE bookmarks (
+    id SERIAL PRIMARY KEY,
+    username TEXT,
+    news_id INTEGER,
+    visible INTEGER
+);

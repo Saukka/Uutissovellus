@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/static/tyyli.css">
 </head>
 <body>
-<h1 id="headtitle" style="float:left">Uutissanomat</h1>
+<a href="/"><h1 id="headtitle" style="float:left">Uutissanomat</h1></a>
 
 {% if session.username %}
 <div id="loginTable" style="float:right">
@@ -40,11 +40,10 @@
 {% endif %}
 <div style="clear:both"></div>
 <form action="/result" method="GET">
-    <input type="text" name="search">
+    <input id ="searchbox" type="text" name="search">
     <br>
-    <input type="submit" value="Etsi">
+    <input style="margin-left:14px" type="submit" value="Etsi">
 </form>
-
 <div id="content" style="float:left">
     <div id="box">
         <a href="/">Etusivu</a>
@@ -55,7 +54,7 @@
         {% block content %}{% endblock %}
     </div>
 </div>
-<div id="topicselection" style="float:right">
+<div id="topicselection" style="float:left">
     <div id="topicbox">
         {% for topic in topics %}
         <p><a href="/{{topic[0]}}"> {{topic[0]}}</a></p>

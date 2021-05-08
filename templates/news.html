@@ -1,6 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
 
+{% if message %}
+<p style="font-size:26px">{{message}}</p>
+{% endif %}
 <div id="titles">
 {% for title in news %}
 <a href="/news/{{title[0]}}">{{title[1]}}</a>

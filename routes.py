@@ -9,7 +9,7 @@ def index():
     sql = "SELECT * FROM news WHERE visible=1 ORDER BY id DESC"
     result = db.session.execute(sql)
     news = result.fetchall()
-    return render_template("news.html", news=news, topics=actions.gettopics())
+    return render_template("news.html", news=news, topics=actions.gettopics(), message="")
 
 @app.route("/news/<int:id>")
 def news(id):
@@ -27,14 +27,14 @@ def mostviewed():
     sql = "SELECT * FROM news WHERE visible=1 ORDER BY views DESC"
     result = db.session.execute(sql)
     news = result.fetchall()
-    return render_template("mostviewed.html", news=news, topics=actions.gettopics())
+    return render_template("news.html", news=news, topics=actions.gettopics(), message="Luetuimmat uutiset:")
 
 @app.route("/<string:topic>")
 def topics(topic):
     sql = "SELECT * FROM news WHERE topic=:topic AND visible=1"
     result = db.session.execute(sql, {"topic":topic})
     news = result.fetchall()
-    return render_template("topic.html", news=news, topics=actions.gettopics(), topic = topic)
+    return render_template("news.html", news=news, topics=actions.gettopics(), topic = topic, message="aiheen {} uutiset:".format(topic))
 
 @app.route("/create")
 def create():
@@ -48,11 +48,11 @@ def register():
         username = request.form["username"]
         password = request.form["password"]
         usertype = request.form["usertype"]
-        if users.register(username,password,usertype):
-            return redirect("/")
-        else:
-            return render_template("error.html",message="Rekisteröinti ei onnistunut. Kokeile toista käyttäjätunnusta.")
-
+        message = users.register(username,password,usertype)
+        print(message)
+        if message != True:
+            return render_template("register.html", message = message)
+        return redirect("/")
 @app.route("/login", methods=["GET","POST"])
 def login():
     if request.method == "GET":
@@ -76,7 +76,7 @@ def result():
     sql = "SELECT * FROM news WHERE (LOWER(title) LIKE LOWER(:search) OR LOWER(body) LIKE LOWER(:search) OR LOWER(topic) LIKE LOWER(:search)) AND visible=1"
     result = db.session.execute(sql,{"search":"%"+search+"%"})
     news = result.fetchall()
-    return render_template("result.html", news=news, search=search, topics=actions.gettopics())
+    return render_template("news.html", news=news, search=search, topics=actions.gettopics(), message="Tulokset haulle '{}':".format(search))
     
 @app.route("/comment", methods=["POST"])
 def comment():
@@ -112,7 +112,16 @@ def deletepiece():
 @app.route("/deletecomment", methods=["POST"])
 def deletecomment():
     id = request.form["id"]
-    actions.deletecomment(id)
+    news_id = request.form["news_id"]
+    actions.deletecomment(id, news_id)
     return redirect(request.referrer)
     
+@app.route("/swapbookmark", methods=["POST"])
+def swapbookmark():
+    news_id = request.form["news_id"]
+    actions.swapbookmark(news_id)
+    return redirect(request.referrer)
 
+#@app.route("/viewbookmarks")
+#def viewbookmarks():
+    

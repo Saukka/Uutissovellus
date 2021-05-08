@@ -8,8 +8,9 @@
 }
 
 #content {
-    margin: 90px 30px 20px 160px;
-    max-width: 650px;
+    margin: 90px 30px 20px 10%;
+    width: 60%;
+    max-width: 800px;
 }
 
 #box {
@@ -44,12 +45,59 @@
     margin: 20px 200px auto auto; 
 }
 
+#searchbox {
+    margin-left: 14px;
+    width: 200px;
+    height: 23px;
+}
+
+#textandbox {
+    color: #500000;
+    margin: 40px 18px 4px 18px;
+}
+
+#regbox {
+    color: #000000;
+    font-size: 15px;
+    margin-top: 5px;
+    width: 400px;
+    height: 30px;
+}
+
 #regArea {
-    position: relative;
     border: 2px solid #8d8d8d;
-    padding: 14px 14px 10px 14px;
-    margin: 300px 400px 300px 400px;
+    padding: 20px 14px 10px 14px;
+    margin: 100px auto;
     width: fit-content;
+}
+
+#return {
+    margin-left: 14px;
+    font-size: 18px;
+    border: 2px solid purple;
+    width: fit-content;
+    padding: 4px;
+    border-radius: 6px;
+}
+
+#return a {
+    text-decoration: none;
+}
+
+#newuser {
+    background-color: #4189ff;
+    color: white;
+    font-size: 22px;
+    margin: 12px;
+    height: 40px;
+    width: 418px;
+    border: 2px;
+    border-radius: 4px;
+}
+
+#newuser:hover {
+    background-color: #2f71db;
+    cursor: pointer;
 }
 
 #commentbox {
@@ -96,8 +144,9 @@
     padding: 10px;
     border: 2px solid #53B4DE;
     margin-top: 140px;
-    margin-right: 35px;
     text-decoration: none;
+    position: -webkit-sticky;
+    position: sticky;
 }
 
 #topicbox a {
