@@ -16,3 +16,10 @@ Sovelluksen toiminnallisuudet ovat valmiit.
 * Toimittaja voi poistaa minkävaan kommentin omassa julkaisussaan.
 * Artikkelilla on otsikko, teksti, julkaisuaika, aihe, mahdollinen valokuva, toimittaja, sekä kommentit. Toimittaja myös näkee artikkelin katsomiskerrat.
 * Toimittajalla on myös kaikki lukijan ominaisuudet.
+
+
+Merkkijonorajoitukset:
+
+* Käyttäjätunnuksen tulee olla 3-20 merkkiä pitkä ja salasanan 6-32.
+* Artikkelin otsikon tulee olla 10-150 merkkiä pitkä ja tekstin 10-5000. 
+* Kommentin tulee sisältää ainakin yksi merkki ja merkki ei voi olla blanko.
