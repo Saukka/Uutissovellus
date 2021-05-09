@@ -30,8 +30,10 @@ def getbookmarks():
     return amount
     
 def comment(news_id,username,comment):
-    if (len(comment) == 0):
+    if (len(comment.strip()) == 0):
         return "Et voi lähettää tyhjää kommenttia."
+    if (len(comment) > 1000):
+        return "Kommentin maksimipituus on 1000 merkkiä."
     try:
         sql = "INSERT INTO comments (news_id, username, comment, date, visible) VALUES (:news_id, :username, :comment, NOW(), 1)"
         db.session.execute(sql, {"news_id":news_id, "username":username, "comment":comment})

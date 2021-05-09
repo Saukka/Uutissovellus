@@ -1,3 +1,7 @@
+body {
+    padding-bottom: 100px;
+}
+
 #headtitle {
     background: #ff9933;
     color: #e6e6e6;
@@ -11,6 +15,57 @@
     margin: 90px 30px 20px 10%;
     width: 60%;
     max-width: 800px;
+}
+
+#publishbutton {
+    display: grid;
+    font-size: 24px;
+    border: none;
+    border-radius: 8px;
+    margin: auto;
+    margin-top: 10px;
+    width: 250px;
+    height: 32px;
+    background-color: #ff9500;
+    color: white;
+}
+
+#publishbutton:hover {
+    background-color: #cf7900;
+    cursor: pointer;
+}
+
+#newpiecebutton {
+    font-size: 13px;
+    color: white;
+    background-color: #ff7a7a;
+    width: 120px;
+    height: 35px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+#newpiecebutton:hover {
+    cursor: pointer;
+    background-color: #c94d4d;
+}
+
+
+#searchbutton {
+    color: black;
+    background-color: #3de8ff;
+    margin-top: 3px;
+    margin-left: 14px;
+    width: 50px;
+    height 25px;
+    border-radius: 3px;
+    border: none;
+}
+
+#searchbutton:hover {
+    cursor: pointer;
+    background-color: #2294a3;
 }
 
 #box {
@@ -34,7 +89,7 @@
 #titles a {
     color: #000000;
     text-decoration: none;
-    font: 35px Verdana;
+    font: 31px Verdana;
 }
 
 #titles a:hover {
@@ -115,20 +170,22 @@
 }
 
 #titlebox {
+    font-size: 20px;
     margin-top: 10px;
-    width: 630px;
+    width: 500px;
     height: 45px;
 }
 
 #bodybox {
+    font-size: 16px;
     margin-top: 15px;
-    width: 660px;
+    width: 600px;
     height: 260px;
 }
 
 #topics {
     margin-top: 25px;
-    border: 3px solid #FF5757;
+    border: 3px solid #7afdff;
     width: 660px;
     height: 80px;
 }
@@ -145,8 +202,9 @@
     border: 2px solid #53B4DE;
     margin-top: 140px;
     text-decoration: none;
-    position: -webkit-sticky;
     position: sticky;
+    position: -webkit-sticky;
+    top: 50px;
 }
 
 #topicbox a {

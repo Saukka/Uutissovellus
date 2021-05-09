@@ -11,7 +11,7 @@
 <p> Hei {{ session.username }}</p>
 {% if session.usertype == "toimittaja" %}
 <form action="/newpiece" method="GET">
-    <input type="submit" value="Luo uusi uutinen">
+    <input id="newpiecebutton" type="submit" value="Luo uusi uutinen">
 </form>
 {% endif %}
 <a href="/logout">Kirjaudu ulos</a>
@@ -25,13 +25,13 @@
 	<td></td>
     </tr>
     <tr>
-	<td>Salasana:</td>
+	<td style="text-align: right;">Salasana:</td>
 	<td><input type="password" name="password"></td>
 	<td></td>
     </tr>
     <tr>
 	<td></td>
-	<td><input type="submit" value="Kirjaudu sisään"> tai </td>
+	<td><input type="submit" value="Kirjaudu sisään"> tai</td>
 	<td><a href="/create">Luo uusi tunnus</a></td>
     </tr>
 </table>
@@ -42,7 +42,7 @@
 <form action="/result" method="GET">
     <input id ="searchbox" type="text" name="search">
     <br>
-    <input style="margin-left:14px" type="submit" value="Etsi">
+    <input id="searchbutton" type="submit" value="Etsi">
 </form>
 <div id="content" style="float:left">
     <div id="box">
@@ -59,12 +59,10 @@
     <p><a href="/bookmarks"> Lukulista ({{amount}})</a></p>
 </div>
 {% endif %}
-<div id="topicselection" style="float:left">
-    <div id="topicbox">
-        {% for topic in topics %}
-        <p><a href="/{{topic[0]}}"> {{topic[0]}}</a></p>
-        {% endfor %}
-    </div>
+<div id="topicbox" style="float:left">
+    {% for topic in topics %}
+    <p><a href="/{{topic[0]}}"> {{topic[0]}}</a></p>
+    {% endfor %}
 </div>
 <div style="clear:both"></div>
 </body>
