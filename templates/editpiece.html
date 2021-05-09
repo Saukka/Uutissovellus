@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+<p style="font-size: 25px">Muokkaa uutista</p>
+<form action="/commitedit" method="POST">
+    <textarea id="titlebox" name="title" placeholder="Otsikko">{{title}}</textarea>
+    <br>
+    <textarea id="bodybox" name="body" placeholder="Leipäteksti">{{body}}</textarea>
+    <br>
+    <p style="font-size: 16px"> Aihe: {{topic}}</p>
+    </div> 
+    <input id="commitedit" type="submit" value="Vahvista muutokset">
+    <input type="hidden" name="id" value="{{id}}">
+</form>
+
+{% endblock %}

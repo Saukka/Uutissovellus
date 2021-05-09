@@ -49,9 +49,8 @@ def register():
         password = request.form["password"]
         usertype = request.form["usertype"]
         message = users.register(username,password,usertype)
-        print(message)
         if message != True:
-            return render_template("register.html", message = message)
+            return render_template("register.html", message=message)
         return redirect("/")
 @app.route("/login", methods=["GET","POST"])
 def login():
@@ -83,7 +82,9 @@ def comment():
     comment = request.form["comment"]
     username = session["username"]
     news_id = request.form["news_id"]
-    actions.comment(news_id,username,comment)
+    message = actions.comment(news_id,username,comment)
+    if message != True:
+        return render_template("error.html", message = message)
     return redirect("/news/"+news_id)
     
 @app.route("/newpiece")
@@ -93,16 +94,34 @@ def newpiece():
 @app.route("/publish", methods=["POST"])
 def publish():
     username = session["username"]
-    usertype = session["usertype"]
     title = request.form["title"]
     body = request.form["body"]
     topic = request.form["topic"]
-    if actions.publish(username, usertype, title, body, topic):
-        return redirect("/")
-    else:
+    message = actions.publish(username, title, body, topic)
+    if message != True:
+        return render_template("error.html", message=message)
+    elif message == False:
         return render_template("error.html",message="Virhe tapahtui. Ehkä et ole toimittaja")
+    return redirect("/")
     
+@app.route("/editpiece", methods=["POST"])
+def editpiece():
+    id = request.form["id"]
+    title = request.form["title"]
+    body = request.form["body"]
+    topic = request.form["topic"]
+    return render_template("editpiece.html", id=id, title=title, body=body, topic=topic, topics=actions.gettopics())
 
+@app.route("/commitedit", methods=["POST"])
+def commitedit():
+    id = request.form["id"]
+    title = request.form["title"]
+    body = request.form["body"]
+    message = actions.commitedit(id, title, body)
+    if message != True:
+        return render_template("error.html", message=message)
+    return redirect("/news/" + id)
+    
 @app.route("/deletepiece", methods=["POST"])
 def deletepiece():
     id = request.form["id"]
@@ -113,7 +132,7 @@ def deletepiece():
 def deletecomment():
     id = request.form["id"]
     news_id = request.form["news_id"]
-    actions.deletecomment(id, news_id)
+    actions.deletecomment(id)
     return redirect(request.referrer)
     
 @app.route("/swapbookmark", methods=["POST"])

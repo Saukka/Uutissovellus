@@ -9,14 +9,23 @@
     <input type="hidden" name="id" value="{{news[0][0]}}">
 </form>
 
-<form action ="/editpiece" method="POST">
+<form action ="/editpiece", method="POST">
     <input type="submit" value="Muokkaa uutista">
     <input type="hidden" name="id" value="{{news[0][0]}}">
+    <input type="hidden" name="title" value="{{news[0][1]}}">
+    <input type="hidden" name="body" value="{{news[0][2]}}">
+    <input type="hidden" name="topic" value="{{news[0][6]}}">
 </form>
 {% endif %}
 <div id="titles">
 <h2>{{news[0][1]}}</h2>
 
+{% if session.username %}
+<form action="/swapbookmark" method="POST">
+    <input style="float:right; margin-bottom: 90%; margin-right: 10px;"type="submit" value="Kirjanmerkki">
+    <input type="hidden" name="news_id" value="{{news[0][0]}}">
+</form>
+{% endif %}
 
 <div style="white-space:pre-wrap">{{news[0][2]}}</div>
 
@@ -30,10 +39,6 @@ Julkaistu {{news[0][4].strftime("%H:%M %d.%m.%Y")}}
 <br>
 
 {% if session.username %}
-<form action="/swapbookmark" method="POST">
-    <input type="submit" value="placeholder">
-    <input type="hidden" name="news_id" value="{{news[0][0]}}">
-</form>
 
 <form action="/comment" method="POST">
     <textarea id="commentbox" name="comment" placeholder="Kommentoi..."></textarea><br>
