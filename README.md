@@ -23,3 +23,8 @@ Merkkijonorajoitukset:
 * Käyttäjätunnuksen tulee olla 3-20 merkkiä pitkä ja salasanan 6-32.
 * Artikkelin otsikon tulee olla 10-150 merkkiä pitkä ja tekstin 10-5000. 
 * Kommentin tulee sisältää ainakin yksi merkki ja merkki ei voi olla blanko.
+
+
+### Etusivunäkymä 
+
+<img width="700" alt="Etusivunäkymä" src="https://user-images.githubusercontent.com/80990021/117588359-78016700-b12b-11eb-8485-47e5ab961033.png">
