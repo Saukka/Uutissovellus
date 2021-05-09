@@ -22,7 +22,6 @@ def isbookmarked(id):
 def getbookmarks():
     if not session:
         return 0
-    
     username = session["username"]
     sql = "SELECT COUNT(*) FROM bookmarks WHERE username=:username AND visible = 1"
     result = db.session.execute(sql, {"username":username})
@@ -75,7 +74,8 @@ def publish(username, title, body, file, topic):
 def commitedit(id, title, body):
     username = session["username"]
     if (len(title) < 10 or len(body) < 10 or len(title) > 150 or len(body) > 5000):
-        return "Muokkaaminen epäonnistui. Otsikon tulee sisältää 10-150 merkkiä ja tekstin 10-5000. Otsikon pituus oli " + str(len(title)) + ", tekstin pituus " + str(len(body)) + ".";
+        return "Muokkaaminen epäonnistui. Otsikon tulee sisältää 10-150 merkkiä ja tekstin 10-5000. Otsikon pituus oli " + str(len(title)) + ", tekstin pituus " + str(len(body)) + "."
+    
     sql = "UPDATE news SET title = :title, body = :body WHERE id=:id AND reporter=:username"
     db.session.execute(sql, {"title":title, "body":body, "id":id, "username":username})
     db.session.commit()

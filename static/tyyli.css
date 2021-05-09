@@ -2,6 +2,8 @@ body {
     padding-bottom: 100px;
 }
 
+/* layout start */
+
 #headtitle {
     background: #ff9933;
     color: #e6e6e6;
@@ -17,40 +19,11 @@ body {
     max-width: 800px;
 }
 
-#publishbutton {
-    display: grid;
-    font-size: 24px;
-    border: none;
-    border-radius: 8px;
-    margin: auto;
-    margin-top: 10px;
-    width: 250px;
-    height: 32px;
-    background-color: #ff9500;
-    color: white;
+#searchbox {
+    margin-left: 14px;
+    width: 200px;
+    height: 23px;
 }
-
-#publishbutton:hover {
-    background-color: #cf7900;
-    cursor: pointer;
-}
-
-#newpiecebutton {
-    font-size: 13px;
-    color: white;
-    background-color: #ff7a7a;
-    width: 120px;
-    height: 35px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 5px;
-}
-
-#newpiecebutton:hover {
-    cursor: pointer;
-    background-color: #c94d4d;
-}
-
 
 #searchbutton {
     color: black;
@@ -81,7 +54,48 @@ body {
     font: 26px Verdana;
     margin-right: 20%;
 }
-    
+
+#bookmarks a {
+    font-size: 22px;
+    text-decoration: none;
+    color: #17d1a5;
+}
+#bookmarks a:hover {
+    color: #10876b;
+    border-radius: 5px;
+}
+
+#topicbox {
+    padding: 10px;
+    border: 2px solid #53B4DE;
+    margin-top: 140px;
+    text-decoration: none;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 50px;
+}
+
+#topicbox a {
+    color: #7A7A7A;
+    text-decoration: none;
+}
+
+#topicbox a:hover {
+    text-decoration: underline;
+}
+
+#topicbox p {
+    margin-top: 10px;
+}
+
+#loginTable {
+    margin: 20px 200px auto auto;
+}
+
+/* layout end */
+
+/* index start*/
+
 #titles {
     max-width: 650px;
 }
@@ -96,15 +110,9 @@ body {
     text-decoration: underline;
 }
 
-#loginTable {
-    margin: 20px 200px auto auto; 
-}
+/* index end */
 
-#searchbox {
-    margin-left: 14px;
-    width: 200px;
-    height: 23px;
-}
+/* register-area start*/
 
 #textandbox {
     color: #500000;
@@ -155,6 +163,27 @@ body {
     cursor: pointer;
 }
 
+/* register-area end */
+
+/* news-piece start */
+#icon {
+    width: 50px;
+    border-radius: 8px;
+}
+
+#icon:hover {
+    background-color: #858585;
+}
+
+img.piece {
+    max-width: 500px;
+}
+
+#info {
+    margin-left: 70px;
+    margin-top: 70px;
+}
+
 #commentbox {
     width: 500px;
     height: 80px;
@@ -164,10 +193,9 @@ body {
     font-style: italic;
 }
 
-#info {
-    margin-left: 70px;
-    margin-top: 70px;
-}
+/* news-piece end */
+
+/* create-new-piece start*/
 
 #titlebox {
     font-size: 20px;
@@ -190,55 +218,38 @@ body {
     height: 80px;
 }
 
-#publish {
-    margin-bottom: 120px; 
-    font-size: 20px; 
-    width: 80px; 
-    margin-top: 6px;
-}
-
-#topicbox {
-    padding: 10px;
-    border: 2px solid #53B4DE;
-    margin-top: 140px;
-    text-decoration: none;
-    position: sticky;
-    position: -webkit-sticky;
-    top: 50px;
-}
-
-#topicbox a {
-    color: #7A7A7A;
-    text-decoration: none;
-}
-
-#topicbox a:hover {
-    text-decoration: underline;
-}
-
-#topicbox p {
-    margin-top: 10px;
-}
-
-#icon {
-    width: 50px;
-    border-radius: 8px;
-}
-
-#icon:hover {
-    background-color: #858585;
-}
-
-img.piece {
-    max-width: 500px;
-}
-
-#bookmarks a {
-    font-size: 22px;
-    text-decoration: none;
-    color: #17d1a5;
-}
-#bookmarks a:hover {
-    color: #10876b;
+#newpiecebutton {
+    font-size: 13px;
+    color: white;
+    background-color: #ff7a7a;
+    width: 120px;
+    height: 35px;
+    margin-bottom: 15px;
+    border: none;
     border-radius: 5px;
 }
+
+#newpiecebutton:hover {
+    cursor: pointer;
+    background-color: #c94d4d;
+}
+
+#publishbutton {
+    display: grid;
+    font-size: 24px;
+    border: none;
+    border-radius: 8px;
+    margin: auto;
+    margin-top: 10px;
+    width: 250px;
+    height: 32px;
+    background-color: #ff9500;
+    color: white;
+}
+
+#publishbutton:hover {
+    background-color: #cf7900;
+    cursor: pointer;
+}
+
+/* create-new-piece end */

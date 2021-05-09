@@ -36,7 +36,6 @@
     </tr>
 </table>
 </form>
-
 {% endif %}
 <div style="clear:both"></div>
 <form action="/result" method="GET">
@@ -49,10 +48,7 @@
         <a href="/">Etusivu</a>
         <a href="/mostviewed">Luetuimmat</a>
     </div>
-
-    <div class="main">
-        {% block content %}{% endblock %}
-    </div>
+    {% block content %}{% endblock %}
 </div>
 {% if session.username %}
 <div id="bookmarks">
