@@ -5,9 +5,9 @@
 {% if session.username %}
     <form action="/swapbookmark" method="POST">
         {% if bookmarked %}
-        <input id="icon" style="float:right; margin-right: 12%;" type="image" src="/static/bookmarkiconON.png">
+        <input id="icon" type="image" src="/static/bookmarkiconON.png">
         {% else %}
-        <input id="icon" style="float:right; margin-right: 12%;" type="image" src="/static/bookmarkicon.png">
+        <input id="icon" type="image" src="/static/bookmarkicon.png">
         {% endif %}
         <input type="hidden" name="news_id" value="{{news[0][0]}}">
     </form>

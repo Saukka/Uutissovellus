@@ -51,14 +51,16 @@
     {% block content %}{% endblock %}
 </div>
 {% if session.username %}
+<div id="rightside">
 <div id="bookmarks">
     <p><a href="/bookmarks"> Lukulista ({{amount}})</a></p>
 </div>
 {% endif %}
-<div id="topicbox" style="float:left">
+<div id="topicbox">
     {% for topic in topics %}
     <p><a href="/{{topic[0]}}"> {{topic[0]}}</a></p>
     {% endfor %}
+</div>
 </div>
 <div style="clear:both"></div>
 </body>
