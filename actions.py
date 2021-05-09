@@ -92,6 +92,9 @@ def deletepiece(id):
     sql = "UPDATE news SET visible = 0 WHERE id=:id AND reporter=:username"
     db.session.execute(sql, {"id":id, "username":username})
     db.session.commit()
+    sql2 = "UPDATE bookmarks set visible = -1 WHERE news_id=:id"
+    db.session.execute(sql2, {"id":id})
+    db.session.commit()
     return True;
 
 def deletecomment(id):
