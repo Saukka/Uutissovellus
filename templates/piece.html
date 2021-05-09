@@ -20,7 +20,7 @@
 </form>
 
 <form action ="/editpiece", method="POST">
-    <input type="submit" value="Muokkaa uutista">
+    <input id="editbutton" type="submit" value="Muokkaa uutista">
     <input type="hidden" name="id" value="{{news[0][0]}}">
     <input type="hidden" name="title" value="{{news[0][1]}}">
     <input type="hidden" name="body" value="{{news[0][2]}}">
@@ -48,7 +48,7 @@ Julkaistu {{news[0][4].strftime("%H:%M %d.%m.%Y")}}
 
 <form action="/comment" method="POST">
     <textarea id="commentbox" name="comment" placeholder="Kommentoi..."></textarea><br>
-    <input type="submit" value="Lähetä kommentti">
+    <input id="commentbutton" type="submit" value="Lähetä kommentti">
     <input type="hidden" name="news_id" value="{{news[0][0]}}">
 </form>
 {% endif %}

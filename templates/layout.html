@@ -31,7 +31,7 @@
     </tr>
     <tr>
 	<td></td>
-	<td><input type="submit" value="Kirjaudu sisään"> tai</td>
+	<td><input id="loginbutton" type="submit" value="Kirjaudu sisään"> tai</td>
 	<td><a href="/create">Luo uusi tunnus</a></td>
     </tr>
 </table>
@@ -50,8 +50,8 @@
     </div>
     {% block content %}{% endblock %}
 </div>
-{% if session.username %}
 <div id="rightside">
+{% if session.username %}
 <div id="bookmarks">
     <p><a href="/bookmarks"> Lukulista ({{amount}})</a></p>
 </div>
