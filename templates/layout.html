@@ -8,41 +8,41 @@
 
 {% if session.username %}
 <div id="loginTable" style="float:right">
-<p> Hei {{ session.username }}</p>
-{% if session.usertype == "toimittaja" %}
-<form action="/newpiece" method="GET">
-    <input id="newpiecebutton" type="submit" value="Luo uusi uutinen">
-</form>
-{% endif %}
-<a href="/logout">Kirjaudu ulos</a>
+    <p> Hei {{ session.username }}</p>
+    {% if session.usertype == "toimittaja" %}
+    <form action="/newpiece" method="GET">
+        <input id="newpiecebutton" type="submit" value="Luo uusi uutinen">
+    </form>
+    {% endif %}
+    <a href="/logout">Kirjaudu ulos</a>
 </div>
 {% else %}
 <form action="/login" method="POST">
 <table id="loginTable" style="float:right">
     <tr>
         <td>Käyttäjätunnus:</td>
-	<td><input type="text" name="username"></td>
-	<td></td>
+        <td><input type="text" name="username"></td>
+        <td></td>
     </tr>
     <tr>
-	<td style="text-align: right;">Salasana:</td>
-	<td><input type="password" name="password"></td>
-	<td></td>
+        <td style="text-align: right;">Salasana:</td>
+        <td><input type="password" name="password"></td>
+        <td></td>
     </tr>
     <tr>
-	<td></td>
-	<td><input id="loginbutton" type="submit" value="Kirjaudu sisään"> tai</td>
-	<td><a href="/create">Luo uusi tunnus</a></td>
+        <td></td>
+        <td><input id="loginbutton" type="submit" value="Kirjaudu sisään"> tai</td>
+        <td><a href="/create">Luo uusi tunnus</a></td>
     </tr>
 </table>
 </form>
 {% endif %}
 <div style="clear:both"></div>
-<form action="/result" method="GET">
-    <input id ="searchbox" type="text" name="search">
-    <br>
-    <input id="searchbutton" type="submit" value="Etsi">
-</form>
+    <form action="/result" method="GET">
+        <input id ="searchbox" type="text" name="search">
+        <br>
+        <input id="searchbutton" type="submit" value="Etsi">
+    </form>
 <div id="content" style="float:left">
     <div id="box">
         <a href="/">Etusivu</a>
@@ -51,16 +51,16 @@
     {% block content %}{% endblock %}
 </div>
 <div id="rightside">
-{% if session.username %}
-<div id="bookmarks">
-    <p><a href="/bookmarks"> Lukulista ({{amount}})</a></p>
-</div>
-{% endif %}
-<div id="topicbox">
-    {% for topic in topics %}
-    <p><a href="/{{topic[0]}}"> {{topic[0]}}</a></p>
-    {% endfor %}
-</div>
+    {% if session.username %}
+    <div id="bookmarks">
+        <p><a href="/bookmarks"> Lukulista ({{amount}})</a></p>
+    </div>
+    {% endif %}
+    <div id="topicbox">
+        {% for topic in topics %}
+        <p><a href="/{{topic[0]}}"> {{topic[0]}}</a></p>
+        {% endfor %}
+    </div>
 </div>
 <div style="clear:both"></div>
 </body>

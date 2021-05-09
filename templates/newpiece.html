@@ -8,10 +8,10 @@
     <br>
     <p>Kuva asetetaan uutisen alkuun. Tiedoston pääte pitää olla .jpg ja sen koko saa olla enintään 100 kilotavua.</p>
     <div id="topics">
-    {% for topic in topics %}
-    <input type="radio" id="{{topic[0]}}" name="topic" value="{{topic[0]}}" checked>
-    <label for="{{topic[0]}}"> {{topic[0]}} </label>
-    {% endfor %}
+        {% for topic in topics %}
+        <input type="radio" name="topic" value="{{topic[0]}}" checked>
+        <label for="{{topic[0]}}"> {{topic[0]}} </label>
+        {% endfor %}
     </div>
     <input id="publishbutton" type="submit" value="Julkaise">
 </form>
