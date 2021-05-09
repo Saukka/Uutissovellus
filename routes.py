@@ -145,7 +145,7 @@ def deletepiece():
 def deletecomment():
     id = request.form["id"]
     news_id = request.form["news_id"]
-    actions.deletecomment(id)
+    actions.deletecomment(id, news_id)
     return redirect(request.referrer)
     
 @app.route("/swapbookmark", methods=["POST"])

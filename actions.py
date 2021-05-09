@@ -97,12 +97,22 @@ def deletepiece(id):
     db.session.commit()
     return True;
 
-def deletecomment(id):
+def deletecomment(id, news_id):
+    
     username = session["username"]
     sql = "UPDATE comments SET visible = 0 WHERE id=:id AND username=:username"
     db.session.execute(sql, {"id":id, "username":username})
     db.session.commit()
-    return True;
+    #Edellinen toimii vaan kun käyttäjä poistaa oman kommenttinsa
+    
+    sqlcheck = "SELECT reporter FROM news WHERE id=:news_id"
+    result = db.session.execute(sqlcheck, {"news_id":news_id})
+    reporter = result.fetchone()[0]
+    if username == reporter:
+        sqldo = "UPDATE comments SET visible = 0 WHERE id=:id AND news_id=:news_id"
+        db.session.execute(sqldo, {"id":id, "news_id":news_id})
+        db.session.commit()
+        return True;
 
 def swapbookmark(news_id):
     username = session["username"]
