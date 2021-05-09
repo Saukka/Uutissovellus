@@ -1,6 +1,7 @@
 from app import app
 from db import db
-from flask import redirect, request, session, render_template
+from flask import redirect, request, session, render_template, make_response
+import base64
 import users
 import actions
 
@@ -9,7 +10,7 @@ def index():
     sql = "SELECT * FROM news WHERE visible=1 ORDER BY id DESC"
     result = db.session.execute(sql)
     news = result.fetchall()
-    return render_template("news.html", news=news, topics=actions.gettopics(), message="")
+    return render_template("news.html", news=news, topics=actions.gettopics(), amount = actions.getbookmarks(), message="")
 
 @app.route("/news/<int:id>")
 def news(id):
@@ -20,21 +21,32 @@ def news(id):
     news = result.fetchall()
     comments = result2.fetchall()
     actions.addview(id)
-    return render_template("piece.html", news=news, comments=comments,topics=actions.gettopics())
-
+    
+    sqlcheck = "SELECT COUNT(*) FROM images WHERE news_id=:id"
+    resultcheck = db.session.execute(sqlcheck, {"id":id})
+    amount = resultcheck.fetchone()[0]
+    if amount == 0:
+        return render_template("piece.html", news=news, comments=comments, topics=actions.gettopics(), amount=actions.getbookmarks())
+    
+    sql3 = "SELECT data FROM images WHERE news_id=:id"
+    result3 = db.session.execute(sql3, {"id":id})
+    image = result3.fetchone()[0]
+    image64 = base64.b64encode(image)
+    return render_template("piece.html", news=news, comments=comments, image=image64.decode('utf-8'), topics=actions.gettopics(), amount=actions.getbookmarks())
+    
 @app.route("/mostviewed")
 def mostviewed():
     sql = "SELECT * FROM news WHERE visible=1 ORDER BY views DESC"
     result = db.session.execute(sql)
     news = result.fetchall()
-    return render_template("news.html", news=news, topics=actions.gettopics(), message="Luetuimmat uutiset:")
+    return render_template("news.html", news=news, topics=actions.gettopics(), amount=actions.getbookmarks(), message="Luetuimmat uutiset:")
 
 @app.route("/<string:topic>")
 def topics(topic):
     sql = "SELECT * FROM news WHERE topic=:topic AND visible=1"
     result = db.session.execute(sql, {"topic":topic})
     news = result.fetchall()
-    return render_template("news.html", news=news, topics=actions.gettopics(), topic = topic, message="aiheen {} uutiset:".format(topic))
+    return render_template("news.html", news=news, topics=actions.gettopics(), topic = topic, amount=actions.getbookmarks(), message="aiheen {} uutiset:".format(topic))
 
 @app.route("/create")
 def create():
@@ -52,15 +64,13 @@ def register():
         if message != True:
             return render_template("register.html", message=message)
         return redirect("/")
-@app.route("/login", methods=["GET","POST"])
+@app.route("/login", methods=["POST"])
 def login():
-    if request.method == "GET":
-        return render_template("login.html")
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
         if users.login(username,password):
-            return redirect("/")
+            return redirect(request.referrer)
         else:
             return render_template("error.html",message="Väärä tunnus tai salasana")
             
@@ -75,7 +85,7 @@ def result():
     sql = "SELECT * FROM news WHERE (LOWER(title) LIKE LOWER(:search) OR LOWER(body) LIKE LOWER(:search) OR LOWER(topic) LIKE LOWER(:search)) AND visible=1"
     result = db.session.execute(sql,{"search":"%"+search+"%"})
     news = result.fetchall()
-    return render_template("news.html", news=news, search=search, topics=actions.gettopics(), message="Tulokset haulle '{}':".format(search))
+    return render_template("news.html", news=news, search=search, topics=actions.gettopics(),amount=actions.getbookmarks(), message="Tulokset haulle '{}':".format(search))
     
 @app.route("/comment", methods=["POST"])
 def comment():
@@ -89,7 +99,7 @@ def comment():
     
 @app.route("/newpiece")
 def newpiece():
-    return render_template("newpiece.html", topics=actions.gettopics())
+    return render_template("newpiece.html", topics=actions.gettopics(), amount=actions.getbookmarks())
 
 @app.route("/publish", methods=["POST"])
 def publish():
@@ -97,7 +107,8 @@ def publish():
     title = request.form["title"]
     body = request.form["body"]
     topic = request.form["topic"]
-    message = actions.publish(username, title, body, topic)
+    file = request.files["file"]
+    message = actions.publish(username, title, body, file, topic)
     if message != True:
         return render_template("error.html", message=message)
     elif message == False:
@@ -110,7 +121,7 @@ def editpiece():
     title = request.form["title"]
     body = request.form["body"]
     topic = request.form["topic"]
-    return render_template("editpiece.html", id=id, title=title, body=body, topic=topic, topics=actions.gettopics())
+    return render_template("editpiece.html", id=id, title=title, body=body, topic=topic, topics=actions.gettopics(), amount=actions.getbookmarks())
 
 @app.route("/commitedit", methods=["POST"])
 def commitedit():

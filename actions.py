@@ -8,6 +8,12 @@ def gettopics():
     topics = result.fetchall()
     return topics
 
+def getbookmarks():
+    username = session["username"]
+    sql = "SELECT COUNT(*) FROM bookmarks WHERE username=:username AND visible = 1"
+    result = db.session.execute(sql, {"username":username})
+    amount = result.fetchone()[0]
+    return amount
 def comment(news_id,username,comment):
     if (len(comment) == 0):
         return "Et voi lähettää tyhjää kommenttia."
@@ -19,13 +25,30 @@ def comment(news_id,username,comment):
     except:
         return "Virhe tapahtui."
 
-def publish(username,title,body,topic):
+def publish(username, title, body, file, topic):
     if (len(title) < 10 or len(body) < 10 or len(title) > 150 or len(body) > 5000):
         return "Julkaiseminen epäonnistui. Otsikon tulee sisältää 10-150 merkkiä ja tekstin 10-5000. Otsikon pituus oli " + str(len(title)) + ", tekstin pituus " + str(len(body)) + ".";
+    
+    name = file.filename
+    print(name)
+    if not name.endswith(".jpg"):
+        return "Tiedoston pitää olla jpg-tiedosto."
+    data = file.read()
+    if len(data) > 100*1024:
+        return "Tiedosto on liian suuri."
+    
     usertype = session["usertype"]
     if usertype == "toimittaja":
         sql = "INSERT INTO news (title, body, reporter, date, views, topic, visible) VALUES (:title, :body, :username, NOW(), 0, :topic, 1)"
         db.session.execute(sql, {"title":title, "body":body, "username":username, "topic":topic})
+        db.session.commit()
+        
+        sqlid = "SELECT MAX(id) FROM news"
+        result = db.session.execute(sqlid)
+        amount = result.fetchone()[0]
+        
+        sqlimage = "INSERT INTO images (name, news_id, data) VALUES (:name, :amount, :data)"
+        db.session.execute(sqlimage, {"name":name, "amount":amount, "data":data})
         db.session.commit()
         return True;
     else:
@@ -65,7 +88,6 @@ def swapbookmark(news_id):
     sql = "SELECT COUNT(*) FROM bookmarks where username=:username AND news_id=:news_id"
     result = db.session.execute(sql, {"username":username, "news_id":news_id})
     amount = result.fetchone()[0]
-    print(amount)
     if amount == 0:
         sqlinsert = "INSERT INTO bookmarks (username, news_id, visible) VALUES (:username, :news_id, 1)"
         db.session.execute(sqlinsert, {"username":username, "news_id":news_id})

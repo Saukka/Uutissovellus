@@ -1,9 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
 <p style="font-size: 25px">Luo uusi uutinen</p>
-<form action="/publish" method="POST">
+<form action="/publish" method="POST" enctype="multipart/form-data">
     <textarea id="titlebox" name="title" placeholder="Otsikko"></textarea><br>
     <textarea id="bodybox" name="body" placeholder="Leipäteksti"></textarea><br>
+    <p>Kuva: </p><input type="file" name="file">
+    <br>
+    <p>Kuva asetetaan uutisen alkuun. Tiedoston pääte pitää olla .jpg ja sen koko saa olla enintään 100 kilotavua.</p>
     <div id="topics">
     {% for topic in topics %}
     <input type="radio" id="{{topic[0]}}" name="topic" value="{{topic[0]}}" checked>

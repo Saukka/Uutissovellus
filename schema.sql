@@ -36,3 +36,10 @@ CREATE TABLE bookmarks (
     news_id INTEGER,
     visible INTEGER
 );
+
+CREATE TABLE images (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    news_id INTEGER,
+    data BYTEA);
+);
