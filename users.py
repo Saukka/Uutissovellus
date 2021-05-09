@@ -4,8 +4,6 @@ from flask import session, render_template, request, redirect
 from os import getenv
 from app import app
 
-app.secret_key = getenv("SECRET_KEY")
-
 def login(username,password):
     sql = "SELECT password, id, usertype FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username":username})

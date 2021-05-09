@@ -22,17 +22,19 @@ def news(id):
     comments = result2.fetchall()
     actions.addview(id)
     
+    bookmarked = actions.isbookmarked(id)
+    
     sqlcheck = "SELECT COUNT(*) FROM images WHERE news_id=:id"
     resultcheck = db.session.execute(sqlcheck, {"id":id})
     amount = resultcheck.fetchone()[0]
     if amount == 0:
-        return render_template("piece.html", news=news, comments=comments, topics=actions.gettopics(), amount=actions.getbookmarks())
+        return render_template("piece.html", news=news, comments=comments, topics=actions.gettopics(), amount=actions.getbookmarks(), bookmarked=bookmarked)
     
     sql3 = "SELECT data FROM images WHERE news_id=:id"
     result3 = db.session.execute(sql3, {"id":id})
     image = result3.fetchone()[0]
     image64 = base64.b64encode(image)
-    return render_template("piece.html", news=news, comments=comments, image=image64.decode('utf-8'), topics=actions.gettopics(), amount=actions.getbookmarks())
+    return render_template("piece.html", news=news, comments=comments, image=image64.decode('utf-8'), topics=actions.gettopics(), amount=actions.getbookmarks(), bookmarked=bookmarked)
     
 @app.route("/mostviewed")
 def mostviewed():
@@ -152,6 +154,10 @@ def swapbookmark():
     actions.swapbookmark(news_id)
     return redirect(request.referrer)
 
-#@app.route("/viewbookmarks")
-#def viewbookmarks():
-    
+@app.route("/bookmarks")
+def viewbookmarks():
+    username = session["username"]
+    sql = "SELECT * FROM NEWS WHERE visible=1 AND id IN (SELECT news_id FROM bookmarks WHERE username=:username AND visible=1)"
+    result = db.session.execute(sql, {"username":username})
+    news = result.fetchall()
+    return render_template("news.html", news=news, topics=actions.gettopics(), amount = actions.getbookmarks(), message="Lukulistasi uutiset: ")

@@ -54,11 +54,11 @@
         {% block content %}{% endblock %}
     </div>
 </div>
-
+{% if session.username %}
 <div id="bookmarks">
-    
+    <p><a href="/bookmarks"> Lukulista ({{amount}})</a></p>
 </div>
-
+{% endif %}
 <div id="topicselection" style="float:left">
     <div id="topicbox">
         {% for topic in topics %}

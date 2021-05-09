@@ -7,13 +7,28 @@ def gettopics():
     result = db.session.execute(sql)
     topics = result.fetchall()
     return topics
+    
+def isbookmarked(id):
+    if not session:
+        return False;
+    username = session["username"]
+    sql = "SELECT COUNT(*) FROM bookmarks WHERE news_id=:id AND username=:username AND visible = 1"
+    result = db.session.execute(sql, {"id":id, "username":username})
+    amount = amount = result.fetchone()[0]
+    if amount == 0:
+        return False;
+    return True;
 
 def getbookmarks():
+    if not session:
+        return 0
+    
     username = session["username"]
     sql = "SELECT COUNT(*) FROM bookmarks WHERE username=:username AND visible = 1"
     result = db.session.execute(sql, {"username":username})
     amount = result.fetchone()[0]
     return amount
+    
 def comment(news_id,username,comment):
     if (len(comment) == 0):
         return "Et voi lähettää tyhjää kommenttia."
@@ -29,13 +44,13 @@ def publish(username, title, body, file, topic):
     if (len(title) < 10 or len(body) < 10 or len(title) > 150 or len(body) > 5000):
         return "Julkaiseminen epäonnistui. Otsikon tulee sisältää 10-150 merkkiä ja tekstin 10-5000. Otsikon pituus oli " + str(len(title)) + ", tekstin pituus " + str(len(body)) + ".";
     
-    name = file.filename
-    print(name)
-    if not name.endswith(".jpg"):
-        return "Tiedoston pitää olla jpg-tiedosto."
-    data = file.read()
-    if len(data) > 100*1024:
-        return "Tiedosto on liian suuri."
+    if file:
+        name = file.filename
+        if not name.endswith(".jpg"):
+            return "Tiedoston pitää olla jpg-tiedosto."
+        data = file.read()
+        if len(data) > 100*1024:
+            return "Tiedosto on liian suuri."
     
     usertype = session["usertype"]
     if usertype == "toimittaja":
@@ -43,13 +58,14 @@ def publish(username, title, body, file, topic):
         db.session.execute(sql, {"title":title, "body":body, "username":username, "topic":topic})
         db.session.commit()
         
-        sqlid = "SELECT MAX(id) FROM news"
-        result = db.session.execute(sqlid)
-        amount = result.fetchone()[0]
+        if file:
+            sqlid = "SELECT MAX(id) FROM news"
+            result = db.session.execute(sqlid)
+            amount = result.fetchone()[0]
         
-        sqlimage = "INSERT INTO images (name, news_id, data) VALUES (:name, :amount, :data)"
-        db.session.execute(sqlimage, {"name":name, "amount":amount, "data":data})
-        db.session.commit()
+            sqlimage = "INSERT INTO images (name, news_id, data) VALUES (:name, :amount, :data)"
+            db.session.execute(sqlimage, {"name":name, "amount":amount, "data":data})
+            db.session.commit()
         return True;
     else:
         return False;

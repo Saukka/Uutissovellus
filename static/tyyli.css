@@ -17,14 +17,14 @@
     border: 3px solid #a6a6a6;
     padding: 4px 4px 4px 4px;
     width: fit-content;
-    max-width: 650px;
+    width: 640px;
 }
 
 #box a {
     text-decoration: none;
     color:  #1a1a1a;
     font: 26px Verdana;
-    margin-right: 180px;
+    margin-right: 20%;
 }
     
 #titles {
@@ -154,14 +154,33 @@
     text-decoration: none;
 }
 
+#topicbox a:hover {
+    text-decoration: underline;
+}
+
 #topicbox p {
     margin-top: 10px;
+}
+
+#icon {
+    width: 50px;
+    border-radius: 8px;
+}
+
+#icon:hover {
+    background-color: #858585;
 }
 
 img.piece {
     max-width: 500px;
 }
 
-#topicbox a:hover {
-    text-decoration: underline;
+#bookmarks a {
+    font-size: 22px;
+    text-decoration: none;
+    color: #17d1a5;
+}
+#bookmarks a:hover {
+    color: #10876b;
+    border-radius: 5px;
 }
