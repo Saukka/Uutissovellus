@@ -3,7 +3,8 @@ Uutissovellukseni tietokantasovellus-kurssille
 
 Sovelluksessa voi lukea eri aiheisiin liittyviä toimittajien julkaisemia uutisia ja artikkeleja. Jokainen käyttäjä on lukija tai toimittaja. Sovellus ei käytä JavaScriptiä.
 
-Linkki herokuun: https://limitless-citadel-02629.herokuapp.com
+~Linkki Herokuun: https://limitless-citadel-02629.herokuapp.com~ \
+**Sovellus ei ole enää käytettävissä Herokun maksulliseksi muuttumisen jälkeen.**
 
 Sovelluksen toiminnallisuudet ovat valmiit. 
 
